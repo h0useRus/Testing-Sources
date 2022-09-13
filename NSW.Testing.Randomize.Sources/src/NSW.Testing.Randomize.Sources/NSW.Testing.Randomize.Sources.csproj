@@ -1,0 +1,51 @@
+<Project>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>1.0.0</Version>
+    <PackageId>NSW.Testing.Randomize.Sources</PackageId>
+    <PackageTags>NSW;extensions;testing;helpers;random</PackageTags>
+    <PackageIcon>icon-nsw-testing-sources.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/h0useRus/Testing-Sources</PackageProjectUrl>
+    <RootNamespace>NSW.Testing.Internal</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>contentFiles</ContentTargetFolders>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo> 
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <NoWarn>CS8021</NoWarn>
+    <NoBuild>true</NoBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="@(Compile)">
+      <Pack>true</Pack>
+      <PackagePath>$(ContentTargetFolders)\cs\net6.0\$(PackageId)\</PackagePath>
+    </Compile>
+    <EmbeddedResource Update="@(EmbeddedResource)">
+      <Pack>true</Pack>
+      <PackagePath>$(ContentTargetFolders)\any\any\$(PackageId)\%(RecursiveDir)\</PackagePath>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\icon-nsw-testing-sources.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Remove="@(PackageReference)" />
+  </ItemGroup>
+
+   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+
+  <Target Name="Compile" />
+  <Target Name="CopyFilesToOutputDirectory" />
+
+</Project>
